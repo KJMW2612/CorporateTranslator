@@ -154,15 +154,16 @@ export const Footer: React.FC = () => {
       )}
 
       {/* ==========================================
-        4. 카카오페이 QR 코드 레이어 팝업 (모달 영역)
+        4. 카카오페이 QR 코드 레이어 팝업 (모달 영역 - 더 크게 확장)
          ========================================== */}
       {isQrOpen && (
         <div
           className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-          onClick={() => setIsQrOpen(false)} // 바깥 어두운 배경 클릭 시 팝업 닫힘
+          onClick={() => setIsQrOpen(false)}
         >
           <div
-            className="relative bg-white dark:bg-slate-900 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-xl border border-slate-100 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-150"
+            // 넓이 확장: max-w-sm(384px)에서 max-w-md(448px)로 확장, 여백 보강(p-8) 및 수직 정렬 격차 확대(space-y-5)
+            className="relative bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-8 text-center space-y-5 shadow-xl border border-slate-100 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-150"
             onClick={(e) => e.stopPropagation()} // 내부 클릭 시 버블링 차단
           >
             {/* 닫기 (X) 아이콘 버튼 */}
@@ -187,30 +188,31 @@ export const Footer: React.FC = () => {
             </button>
 
             {/* 헤더 */}
-            <div className="space-y-1">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">
+            <div className="space-y-1.5">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50">
                 🥤 개발자에게 콜라 사주기
               </h3>
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-sm text-slate-400 dark:text-slate-500">
                 카카오페이 머니로 안전하게 후원금이 송금됩니다.
               </p>
             </div>
 
-            {/* QR 이미지 출력 영역 */}
-            <div className="flex justify-center bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+            {/* QR 이미지 출력 영역 (w-48 h-48에서 w-64 h-64로 이미지 크기 시원하게 확대!) */}
+            <div className="flex justify-center bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-100 dark:border-slate-800">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/kakaopay-qr.png"
                 alt="카카오페이 송금 QR코드"
-                className="w-48 h-48 object-contain rounded-lg"
+                className="w-64 h-64 object-contain rounded-lg"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.style.display = "none";
                   const parent = target.parentElement;
                   if (parent) {
                     const fallback = document.createElement("div");
+                    // 폴백 박스도 동일하게 w-64 h-64 규격으로 세련되게 확대해 줍니다.
                     fallback.className =
-                      "w-48 h-48 flex items-center justify-center text-xs text-slate-400 dark:text-slate-600 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-lg p-4 break-keep font-sans";
+                      "w-64 h-64 flex items-center justify-center text-xs text-slate-400 dark:text-slate-600 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-lg p-6 break-keep font-sans";
                     fallback.innerText =
                       "public/kakaopay-qr.png 경로에 송금용 QR코드 이미지를 넣어주시면 자동으로 여기에 매핑됩니다!";
                     parent.appendChild(fallback);
@@ -220,7 +222,7 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* 설명문 */}
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-normal break-keep">
+            <p className="text-sm text-slate-500 dark:text-slate-400 leading-normal break-keep">
               카카오톡 앱의 <strong>QR 스캐너</strong> 또는 스마트폰 기본{" "}
               <strong>카메라 앱</strong>으로 위의 QR 코드를 비추면 즉시 간편
               송금 화면으로 연결됩니다.

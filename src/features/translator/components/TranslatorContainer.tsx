@@ -42,7 +42,7 @@ export const TranslatorContainer: React.FC = () => {
           회사어 번역하기
         </CardTitle>
         <CardDescription>
-          상황에 맞춰 입력폼을 조정한 후 번역하기를 진행해 보세요.
+          해야하는 말을 작성한 후 번역하기를 눌러보세요.
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">

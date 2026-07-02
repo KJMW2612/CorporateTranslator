@@ -164,9 +164,8 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
           <span className="shrink-0 text-amber-500">⚠️</span>
           <span>
             개인정보, 주민등록번호, 계좌번호 또는 사내 기밀 등 민감한 데이터는
-            입력하지 않도록 각별히 주의해 주세요. 당사는 입력되거나 처리된
-            데이터의 임의 보관, 유실 및 유출에 대해 어떠한 법적 책임도 지지
-            않습니다.
+            입력하지 않도록 각별히 주의해 주세요. 입력되거나 처리된 데이터의
+            임의 보관, 유실 및 유출에 대해 어떠한 법적 책임도 지지 않습니다.
           </span>
         </p>
       </div>
