@@ -24,7 +24,7 @@ export default function RootLayout({
         {/* 구글 애드센스 자동 광고 연동 스크립트 */}
         <Script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9727627686963687"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
