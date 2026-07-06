@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Tailwind v4의 표준 CSS 변수를 활용하는 표준 문법입니다. */
+/* Tailwind v4의 표준 CSS 변수를 사용하는 방식입니다. */
 body {
   color: var(--color-slate-950);
   background-color: var(--color-slate-50);
@@ -12,4 +12,20 @@ body {
     color: var(--color-slate-50);
     background-color: var(--color-slate-950);
   }
+}
+
+/* 🥤 100% 동작이 보장되는 물리 슬라이드 업 & 페이드인 애니메이션 */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up-fade {
+  animation: slideUpFade 1.5s cubic-bezier(0.15, 0.4, 0.3, 1) forwards;
 }

@@ -242,10 +242,10 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
               />
             </svg>
-            비즈니스 말투로 변경 중...
+            비즈니스 말투로 번역 중...
           </span>
         ) : (
-          "변환하기"
+          "번역하기"
         )}
       </Button>
     </form>
