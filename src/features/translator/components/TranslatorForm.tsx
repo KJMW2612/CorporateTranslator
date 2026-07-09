@@ -8,6 +8,12 @@ import { TargetAudience, DeliveryChannel, TranslationRequest } from "../types";
 interface TranslatorFormProps {
   onSubmit: (data: TranslationRequest) => void;
   isLoading: boolean;
+  text: string;
+  setText: (val: string) => void;
+  target: TargetAudience;
+  setTarget: (val: TargetAudience) => void;
+  channel: DeliveryChannel;
+  setChannel: (val: DeliveryChannel) => void;
 }
 
 const PRESET_TEMPLATES: Record<string, string[]> = {
@@ -32,7 +38,7 @@ const PRESET_TEMPLATES: Record<string, string[]> = {
     "비가 너무 많이 와서 차가 밀리는 바람에 원래 약속 시간보다 15분 정도 늦게 도착할 것 같습니다.",
   ],
   사과: [
-    "아, 제가 메일을 다른 사람이랑 착각하고 잘못 보냈네요. 헷갈리게 해드려서 죄송합니다.",
+    "A, 제가 메일을 다른 사람이랑 착각하고 잘못 보냈네요. 헷갈리게 해드려서 죄송합니다.",
     "지난번 회의 때 말씀해 주신 피드백 사항을 실수로 놓쳤네요. 제 불찰입니다.",
     "제 실수로 이번 정산 금액 계산이 꼬였어요. 바로 다시 계산해서 빠르게 전달해 드릴게요.",
   ],
@@ -51,12 +57,13 @@ const PRESET_TEMPLATES: Record<string, string[]> = {
 export const TranslatorForm: React.FC<TranslatorFormProps> = ({
   onSubmit,
   isLoading,
+  text,
+  setText,
+  target,
+  setTarget,
+  channel,
+  setChannel,
 }) => {
-  const [text, setText] = React.useState("");
-  const [target, setTarget] = React.useState<TargetAudience>("상사");
-  const [channel, setChannel] = React.useState<DeliveryChannel>("사내 메신저");
-
-  // 각 프리셋 버튼의 현재 순환 인덱스를 기록하는 상태
   const [presetIndices, setPresetIndices] = React.useState<
     Record<string, number>
   >({
@@ -75,9 +82,6 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
     onSubmit({ text, target, channel });
   };
 
-  /**
-   * 예문 버튼을 누를 때마다 예문이 순환하며 변경되도록 상태 제어
-   */
   const handlePresetClick = (key: string) => {
     const templates = PRESET_TEMPLATES[key];
     if (!templates || templates.length === 0) return;
@@ -91,9 +95,6 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
     }));
   };
 
-  /**
-   * 입력창의 내용을 전부 삭제하는 클리어 함수
-   */
   const handleClear = () => {
     setText("");
   };
@@ -102,7 +103,6 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* 1. 원문 입력 (상단에 예문 버튼 추가) */}
       <div className="space-y-2">
         <div className="flex justify-between items-center">
           <Label htmlFor="source-text">원문 입력</Label>
@@ -125,12 +125,11 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
             </button>
           ))}
 
-          {/* ◀ 가장 우측 정렬되는 비우기 버튼 (ml-auto 속성 사용) ▶ */}
           <button
             type="button"
             onClick={handleClear}
             disabled={isLoading}
-            className="px-3 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:bg-red-50 dark:hover:bg-red-950/20 text-slate-500 hover:text-red-600 dark:hover:text-red-400 active:bg-red-100 dark:active:bg-red-900/30 transition-colors shrink-0 ml-auto flex items-center gap-1"
+            className="px-3 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:bg-red-50 dark:hover:bg-red-950/20 text-slate-500 hover:text-red-600 dark:hover:text-red-400 active:bg-red-100 dark:active:bg-red-900/30 transition-colors shrink-0 ml-auto flex items-center gap-1 cursor-pointer"
           >
             <svg
               className="h-3.5 w-3.5"
@@ -151,7 +150,7 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
 
         <Textarea
           id="source-text"
-          placeholder="변환하고 싶은 편안하거나 직관적인 원문을 입력해 보세요. 위의 예문 버튼을 눌러 빠르게 시작할 수도 있습니다."
+          placeholder="번역하고 싶은 말을 편안하고 직관적으로 입력해 보세요. 위의 예문 버튼을 눌러 빠르게 시작할 수도 있습니다."
           value={text}
           onChange={(e) => setText(e.target.value.slice(0, maxChars))}
           maxLength={maxChars}
@@ -159,18 +158,18 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
           required
         />
 
-        {/* ⚠️ 경고 및 책임 면제 안내 문구 */}
         <p className="text-[11px] text-slate-400 dark:text-slate-500 flex items-start gap-1 mt-1.5 break-keep leading-normal">
           <span className="shrink-0 text-amber-500">⚠️</span>
           <span>
             개인정보, 주민등록번호, 계좌번호 또는 사내 기밀 등 민감한 데이터는
-            입력하지 않도록 각별히 주의해 주세요. 입력되거나 처리된 데이터의
-            임의 보관, 유실 및 유출에 대해 어떠한 법적 책임도 지지 않습니다.
+            입력하지 않도록 각별히 주의해 주세요. 당사는 입력되거나 처리된
+            데이터의 임의 보관, 유실 및 유출에 대해 어떠한 법적 책임도 지지
+            않습니다.
           </span>
         </p>
       </div>
 
-      {/* 2. 대상 선택 */}
+      {/* 수신 대상 */}
       <div className="space-y-2">
         <Label>수신 대상</Label>
         <RadioGroup
@@ -194,7 +193,7 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
         </RadioGroup>
       </div>
 
-      {/* 3. 전달 수단 선택 */}
+      {/* 전달 수단 */}
       <div className="space-y-2">
         <Label>전달 수단</Label>
         <RadioGroup
@@ -215,11 +214,10 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
         </RadioGroup>
       </div>
 
-      {/* 4. 변환 버튼 */}
       <Button
         type="submit"
         disabled={isLoading || !text.trim()}
-        className="w-full text-base font-semibold py-6 bg-blue-600 hover:bg-blue-700"
+        className="w-full text-base font-semibold py-6 bg-blue-600 hover:bg-blue-700 cursor-pointer"
       >
         {isLoading ? (
           <span className="flex items-center gap-2">
@@ -242,7 +240,7 @@ export const TranslatorForm: React.FC<TranslatorFormProps> = ({
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
               />
             </svg>
-            비즈니스 말투로 번역 중...
+            비즈니스 말투로 변경 중...
           </span>
         ) : (
           "번역하기"

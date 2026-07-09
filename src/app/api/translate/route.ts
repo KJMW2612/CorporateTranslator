@@ -7,9 +7,11 @@ import {
 } from "@/features/translator/types";
 import { RateLimiter } from "@/lib/rate-limiter";
 import { UserIdentifier } from "@/lib/rate-limiter/identifier";
+
+// 빌드 타임 사전 렌더링 제외 강제
 export const dynamic = "force-dynamic";
 
-// 전역 단일 레이트 리미터 인스턴스 가동 (Persist in memory)
+// 전역 단일 레이트 리미터 가동
 const rateLimiter = new RateLimiter();
 
 // ==========================================
@@ -46,64 +48,29 @@ const TARGET_PROMPTS: Record<TargetAudience, string> = {
 // 3. 수단별 세부 프롬프트 (서식 동일화 및 어조 분리)
 // ==========================================
 const CHANNEL_PROMPTS: Record<DeliveryChannel, string> = {
-  "사내 메신저": `전달 수단은 '사내 메신저(슬랙, 잔디, 팀즈 등)'입니다. 
-모바일 화면 가독성을 높이기 위해 요약 및 개행을 적극 활용해 주시고, 제목이나 서명은 절대 포함하지 마십시오.
-- softText: 상대방이 편하게 느끼도록 "~요", "~요!" 등으로 친근하고 정중하게 끝맺으며, 가벼운 이모지를 자연스럽게 1~2개 섞어 쓰셔도 좋습니다.
-- formalText: 이모지를 일절 사용하지 말고 "~바랍니다", "~드립니다" 등으로 예의를 차린 깔끔한 종결 어미를 사용해 주세요.`,
-
-  이메일: `전달 수단은 '이메일'입니다. AI는 반드시 'softText'와 'formalText' 모두 아래의 [이메일 표준 레이아웃] 구조를 완벽하게 유지하여 완성형 서신 형태로 출력을 내놓아야 합니다.
-
-[이메일 표준 레이아웃]
-제목: (수신 대상과 핵심 내용이 한눈에 파악되도록 대괄호를 사용한 간결하고 명확한 제목)
-
-(수신인 이름/직급 또는 부서)님, 안녕하십니까.
-
-(도입 안부 및 본인 부서/이름 소개)
-
-(본론: 번역할 원문의 핵심 상황을 예의 바르게 살을 붙여서 기술)
-
-(맺음말 및 정중한 감사 인사)
-
-- (가상의 내 소속/이름) 드림 (또는 올림)
-
-[어조 구분 기준]
-- softText (부드럽게): 위의 이메일 양식을 '완벽히 준수'하되, 본론과 맺음말의 종결 어미를 "~요", "~드릴게요", "~감사하겠습니다!" 처럼 다정하고 유연하게 작성합니다. (필요 시 😊 이모지 1개 사용 허용)
-- formalText (격식있게): 위의 이메일 양식을 '완벽히 준수'하되, 본론과 맺음말의 종결 어미를 "~시기 바랍니다", "~드립니다", "~감사합니다" 처럼 엄격하게 예의를 차린 완전한 존댓말로 작성합니다. (이모지 절대 불허)`,
-
-  보고서: `전달 수단은 '보고서(기안서/품의서 등)'입니다. 대화식의 친근한 말투(안녕하세요, 드림 등)는 1%도 섞지 마십시오. AI는 반드시 'softText'와 'formalText' 모두 아래의 개조식 [보고서 표준 레이아웃] 구조를 100% 똑같이 차용해야 합니다.
-
-[보고서 표준 레이아웃]
-■ (보고서 제목: 명확하고 압축적인 명사형 제목)
-
-1. 개요 (또는 관련 안건 목적)
-   - (원문의 배경 및 핵심 상황을 개조식으로 요약하여 1~2줄 기술)
-
-2. 주요 현황 및 세부 내용
-   - (원문 내용의 핵심 논점을 개조식 리스트 형태로 항목화하여 작성)
-   - 문장 끝맺음은 반드시 문어체 명사형 종결(~함, ~임, ~바람, ~예정)을 사용하십시오.
-
-3. 향후 조치 계획
-   - (앞으로 필요한 후속 대응, 컨펌 요구, 마감 일정 등을 개조식으로 1줄 기술)
-
-[어조 구분 기준]
-- softText (부드럽게): 위의 보고서 양식을 '완벽히 준수'하되, 개조식 종결어미를 조금 더 부드럽고 이해하기 쉬운 비즈니스 어조(~할 계획임, ~하면 좋겠음, ~진행 중임)로 자연스럽게 가공합니다.
-- formalText (격식있게): 위의 보고서 양식을 '완벽히 준수'하되, 개조식 종결어미를 매우 확실하고 격식 있는 무거운 비즈니스 어조(~할 예정임, ~해 주시기 바람, ~확인됨)로 정중하게 가공합니다.`,
+  "사내 메신저":
+    "전달 수단은 '사내 메신저'입니다. 모바일 화면 가독성을 높이기 위해 요약 및 개행을 적극 활용해 주세요.",
+  이메일:
+    "전달 수단은 '이메일'입니다. 격식 있는 정식 인사, 도입부, 본론, 맺음말을 완전히 갖춘 비즈니스 서신 형태로 작성해 주세요.",
+  보고서:
+    "전달 수단은 '보고서'입니다. 사설을 완전히 배제하고 오직 사실과 요점이 명확히 드러나도록 문어체 요약 구조로 작성해 주세요.",
 };
 
 export async function POST(req: NextRequest) {
-  const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-
+  // 1. 유저 고유 다중 식별 적용
   const identity = UserIdentifier.identify(req);
   const userId = identity.id;
   const userType = identity.type;
 
   try {
     const body: TranslationRequest = await req.json();
+
+    // ◀ 변수명 정밀 대조부: text, target, channel 값 수신 ▶
     const { text, target, channel } = body;
 
+    // 만약 전달값 중 하나라도 누락되면 400 반환 및 검증 로그를 남깁니다.
     if (!text || !target || !channel) {
+      console.warn("[API Error] Missing body parameters:", body);
       return NextResponse.json(
         { error: "필수 요청 정보가 누락되었습니다." },
         { status: 400 },
@@ -143,7 +110,11 @@ ${text.trim()}
 </user_raw_input>
 `;
 
-    // 환경 변수 기반 모델 로드
+    // 요청 시점에 동적으로 가동하여 컴파일 타임 크래시 극복
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
     const modelName = process.env.OPENAI_MODEL_NAME || "gpt-4o-mini";
 
     // OpenAI Chat Completion API 호출
@@ -157,7 +128,7 @@ ${text.trim()}
         },
         { role: "user", content: combinedPrompt },
       ],
-      response_format: { type: "json_object" }, // JSON 형태의 출력물 강제
+      response_format: { type: "json_object" },
       temperature: 0.7,
     });
 
@@ -190,18 +161,6 @@ ${text.trim()}
     ) {
       errorMessage =
         "현재 서버 결제 한도 또는 무료 한도가 초과되었습니다. 관리자 확인이 필요합니다.";
-    } else if (
-      rawMessage.includes("rate_limit_exceeded") ||
-      rawMessage.includes("429")
-    ) {
-      errorMessage =
-        "현재 오픈AI 서버에 동시 요청량이 과도하게 집중되고 있습니다. 잠시만 기다린 후 다시 시도해 주세요.";
-    } else if (
-      rawMessage.includes("invalid_api_key") ||
-      rawMessage.includes("Incorrect API key provided")
-    ) {
-      errorMessage =
-        "오픈AI API 키 연동 설정에 오류가 감지되었습니다. 관리자에게 문의해 주세요.";
     }
 
     return NextResponse.json({ error: errorMessage }, { status: 500 });

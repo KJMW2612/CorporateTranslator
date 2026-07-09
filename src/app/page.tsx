@@ -53,7 +53,7 @@ export default function Home() {
       {/* 1. 소개글 헤드 세션 */}
       <section className="text-center space-y-2">
         <span className="inline-flex items-center rounded-full bg-blue-50 dark:bg-blue-950/30 px-3 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10">
-          실시간 AI 맞춤 교정
+          AI 맞춤 번역
         </span>
         <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight sm:text-4xl">
           비즈니스 소통을 매끄럽게
