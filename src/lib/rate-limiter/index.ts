@@ -86,7 +86,7 @@ export class RateLimiter {
       );
       return {
         allowed: false,
-        reason: "이미 AI가 문장을 변환하고 있습니다. 잠시만 기다려주세요.",
+        reason: "이미 AI가 문장을 번역하고 있습니다. 잠시만 기다려주세요.",
         statusCode: 429,
       };
     }

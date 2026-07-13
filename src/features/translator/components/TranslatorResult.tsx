@@ -73,7 +73,7 @@ export const TranslatorResult: React.FC<TranslatorResultProps> = ({
   return (
     <div className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-8 space-y-6">
       <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
-        비즈니스 말투 변환 결과
+        비즈니스 말투 번역 결과
       </h4>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

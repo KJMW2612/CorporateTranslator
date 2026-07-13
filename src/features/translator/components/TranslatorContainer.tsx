@@ -84,7 +84,7 @@ export const TranslatorContainer: React.FC = () => {
       const errorMessage =
         err instanceof Error
           ? err.message
-          : "변환 중 원인을 알 수 없는 오류가 발생했습니다.";
+          : "번역 중 원인을 알 수 없는 오류가 발생했습니다.";
       setError(errorMessage);
     } finally {
       setIsLoading(false);

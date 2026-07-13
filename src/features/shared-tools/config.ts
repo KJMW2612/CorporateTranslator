@@ -13,7 +13,7 @@ export const BUSINESS_TOOLS: ToolItem[] = [
     name: "회사어 번역기",
     label: "회사어 번역",
     description: "상황에 맞춰 말투를 다듬어주는 비즈니스 번역기",
-    ctaText: "나에게 어울리는 격식 있는 본문 변환하러 가기 ➔",
+    ctaText: "나에게 어울리는 격식 있는 본문 반역하러 가기 ➔",
     path: "/",
   },
   {
@@ -21,18 +21,15 @@ export const BUSINESS_TOOLS: ToolItem[] = [
     name: "이메일 제목 생성기",
     label: "이메일 제목 짓기",
     description: "안건 키워드로 최적의 메일 제목 3종 세트 조립",
-    ctaText: "1초 만에 스마트한 이메일 제목 지으러 가기 ➔",
+    ctaText: "3초 만에 스마트한 이메일 제목 지으러 가기 ➔",
     path: "/subject-generator",
   },
-  // 💡 [확장 예시] 향후 새로운 툴을 얹고 싶을 때, 아래 주석처럼 등록하기만 하면 즉시 적용됩니다.
-  /*
   {
-    id: "apology-generator",
-    name: "사과문 작성기",
-    label: "사과문 메이커",
-    description: "실수를 예의 있고 완벽하게 수습하는 오피스 사과문 생성기",
-    ctaText: "프로페셔널하게 오해 없이 사과하는 기안서 작성 ➔",
-    path: "/apology-generator",
-  }
-  */
+    id: "greeting-generator",
+    name: "인사말 작성",
+    label: "인사말 작성",
+    description: "날씨, 상황별 오프닝 및 마감 인사말 다차원 조립",
+    ctaText: "부드럽고 품격 있는 계절별 인사말 조립하러 가기 ➔",
+    path: "/greeting-generator",
+  },
 ];

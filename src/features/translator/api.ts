@@ -13,7 +13,7 @@ export async function convertText(
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || "AI 말투 변환에 실패했습니다.");
+    throw new Error(errorData.error || "AI 말투 번역에 실패했습니다.");
   }
 
   return response.json();

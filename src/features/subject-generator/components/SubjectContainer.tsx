@@ -127,7 +127,7 @@ export const SubjectContainer: React.FC = () => {
         </CardTitle>
         <CardDescription>
           어려운 제목 짓기는 그만! 핵심 키워드로 명확한 이메일 제목을
-          작성하세요.
+          지어보세요.
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">

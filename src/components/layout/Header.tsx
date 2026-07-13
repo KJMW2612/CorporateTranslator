@@ -1,10 +1,10 @@
-"use client"; // 상태 탭 활성화를 감지하기 위해 Client Component로 지정합니다.
+"use client";
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image"; // ESLint 에러 예방을 위해 Next.js 공식 이미지 최적화 모듈 연동 [1.2.1, 1.2.3, 1.2.9]
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { BUSINESS_TOOLS } from "@/features/shared-tools/config"; // 중앙 설정 임포트
+import { BUSINESS_TOOLS } from "@/features/shared-tools/config";
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
@@ -17,14 +17,13 @@ export const Header: React.FC = () => {
           href="/"
           className="flex items-center gap-2 cursor-pointer select-none"
         >
-          {/* ◀ 기존 파란색 박스/SVG 아이콘을 없애고, 제작하신 favicon.ico를 로고 이미지로 완벽 교체합니다 [1.1.2] ▶ */}
           <Image
             src="/favicon.ico"
             alt="회사어 번역기 로고"
             width={36}
             height={36}
             className="rounded-lg shadow-sm animate-slide-up-fade"
-            priority // 메인 상단 로고이므로 지연 로딩을 비활성화하고 우선 로드하여 UX 가치를 높입니다 [1.2.1, 1.2.3].
+            priority
           />
           <span className="text-lg font-bold text-slate-900 dark:text-slate-50 tracking-tight">
             회사어 번역기
@@ -35,7 +34,8 @@ export const Header: React.FC = () => {
         <nav className="flex items-center gap-1 select-none">
           {BUSINESS_TOOLS.map((tool) => {
             const isActive = pathname === tool.path;
-            const isSubjectGenerator = tool.id === "subject-generator";
+            // 뱃지 양도: 이제 'greeting-generator' 옆에 NEW 빨간 점 펄스 뱃지가 활성화됩니다 [1.2.8, 1.2.9].
+            const isNewFeature = tool.id === "greeting-generator";
 
             return (
               <Link
@@ -47,16 +47,13 @@ export const Header: React.FC = () => {
                     : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"
                 }`}
               >
-                {/* 신규 기능 알림용 은은한 펄스형 빨간 점 및 NEW 배지 (맨 앞 배치) */}
-                {isSubjectGenerator && (
+                {/* 신규 기능 알림용 은은한 펄스형 빨간 점 및 NEW 배지 */}
+                {isNewFeature && (
                   <span className="flex items-center gap-1 mr-0.5 shrink-0">
-                    {/* ① 빨간 구체 */}
                     <span className="relative flex h-1.5 w-1.5 shrink-0">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-500 dark:bg-red-400"></span>
                     </span>
-
-                    {/* ② "NEW" 텍스트 배지 (빨간 구체와 동일한 애니메이션 효과 이중 탑재) */}
                     <span className="relative inline-flex font-extrabold text-[9px] tracking-wider uppercase leading-none text-red-500 dark:text-red-400">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded bg-red-400 opacity-30"></span>
                       <span className="relative">NEW</span>

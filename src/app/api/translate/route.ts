@@ -150,7 +150,7 @@ ${text.trim()}
     console.error("OpenAI API Error Caught:", error);
 
     let errorMessage =
-      "AI 말투 변환 중 일시적인 서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
+      "AI 말투 번역 중 일시적인 서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
     const rawMessage = error instanceof Error ? error.message : String(error);
 
     // 에러 메시지 한글 정밀 매핑 [1.2.9]

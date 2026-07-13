@@ -160,7 +160,7 @@ export const SubjectForm: React.FC<SubjectFormProps> = ({
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
               />
             </svg>
-            스마트한 제목 조립 중...
+            스마트한 제목 짓는 중...
           </span>
         ) : (
           "이메일 제목 짓기"
