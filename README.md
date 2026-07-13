@@ -1,33 +1,48 @@
-# 🥤 회사어 번역기 (Office Speak AI Translator)
+# 🥤 회사어 번역기 (Office Speak AI Translator Platform)
 
-> **직관적이고 편안한 구어체 초안을 격식 있고 완벽한 회사 환경 비즈니스 서식(회사어)으로 자동 번역해 주는 인공지능 오피스 웹 서비스입니다.**
+> **직관적이고 거친 구어체 초안을 직장 상황 및 수신 대상에 최적화된 정중하고 명확한 비즈니스 서식(회사어)으로 자동 번역해 주는 인공지능 오피스 소통 가이드 플랫폼입니다.**
+
+
+<img width="180" height="180" alt="회사어아이콘" src="https://github.com/user-attachments/assets/d542738b-207f-4654-93d0-f283fa1bef82" />
 
 배포 주소: [https://회사어.kr](https://회사어.kr)
 
+
 ---
 
-## 🌟 주요 특징 (Key Features)
+## 🌟 제공 도구 및 실무 사용 방법 (Core Business Tools Guide)
 
-- **AI 맞춤형 다차원 번역 (Context-aware Translation)**
-  - **수신 대상 세분화**: 상사, 동료, 후배, 거래처 맞춤형 존칭 제어
-  - **전달 수단 구조화**: 사내 메신저(실시간 소통), 이메일(제목/안부/본문/서명 포맷 고수), 보고서(■ 개요/주요내용/향후계획 등 문어체 개조식 포맷 의무화)
-- **리얼 직장인 구어체 프리셋 (Conversational Presets)**
-  - 실무에서 자주 쓰이는 7대 안건(보고, 요청, 일정, 지연, 사과, 감사, 협업)에 대해 각각 3개씩, 총 21개의 엄선된 현실 구어체 예문 탑재
-  - 동일 태그 버튼 연속 클릭 시 3개의 예문이 순서대로 순환(Cycle) 토글되는 상태 제어 방식으로 Deterministic하고 안전한 무작위 변환 경험 선사
-- **개인정보 보호 및 보안 지향 설계 (Privacy & Security)**
-  - 원문에 계좌번호, 이메일, 전화번호, 주민등록번호가 감지될 시 자동으로 `[마스킹]` 처리하는 보안 정규식 탑재
-  - Vercel 환경 변수 통제 및 OpenAI API Key 배포 가상화로 GitHub 공개 저장소 업로드 시 키 유출 원천 차단
-- **독자적인 레이트 리미터 구축 (Custom High-End Rate Limiter)**
-  - **동시성 락 (Concurrency Lock)**: 1인당 동시 요청은 무조건 1개만 허용 (429 Too Many Requests 반환)
-  - **IP & Session 다중 식별기**: Next.js 15+ 스펙에 준하여 `req.ip` 타입 에러 없이 `x-forwarded-for` 프록시를 통해 정확히 유저 트래픽 가중치 감지
-  - **분당 트래픽 통제 (RPM)**: 최근 1분 내 20회 초과 시 30초 강제 차단
-  - **도배 및 매크로 탐지**: 동일 입력값 해싱(SHA-256) 비교를 통해 30초 내 5회 중복 입력 시 일시 차단
-  - **단문 스팸 차단**: 3글자 미만의 무의미한 짧은 글 반복 입력 탐지 및 차단
-- **풍부한 인터랙션 및 편의 기능**
-  - **원문 비우기**: 원문 전체를 손쉽게 초기화할 수 있는 깔끔한 비우기 기능
-  - **이메일 직접 피드백**: Tally/Google Forms 등 외부 도구 의존성 없이 React 내장형 모달 팝업으로 이메일 복사 기능 지원
-  - **카카오페이 송금 연동**: 개인 정보(계좌/전화번호)가 보장되는 평생 고정식 간편 QR 송금 레이어 팝업 탑재
-  - **애드센스 친화적(AdSense-Ready)**: 구글 애드센스 승인을 위한 표준 `robots.txt`, `ads.txt` 정적 서빙 및 UI 비침해식 레이아웃 보장
+### 1. 회사어 번역기 (Main)
+직장 상사나 동료에게 보낼 날것의 날카롭거나 편안한 구어체 초안을 오피스용 비즈니스 말투로 번역합니다.
+
+*   **사용 방법**:
+    1.  **초안 작성**: 원문 입력창에 평소 본인의 생각이나 날것의 피드백을 적습니다. 
+        *   *(💡 팁: 상단 해시태그 버튼 `#보고`, `#요청`, `#지연` 등을 누르면 리얼하고 재미있는 상황별 예시 구어체 문장이 자동으로 무작위 순환 입력되어 즉시 테스트할 수 있습니다.)*
+    2.  **수신 대상 및 전달 수단 선택**: 수신 대상(`상사`, `동료`, `후배`, `거래처`)과 발송 채널(`사내 메신저`, `이메일`, `보고서`)을 상황에 맞게 콕 집어 선택합니다.
+    3.  **번역하기**: 파란색 `번역하기` 버튼을 누릅니다.
+    4.  **결과물 출력**: AI가 매체별 특수 서식을 완벽하게 가미해 `😊 부드러운 회사어`와 `💼 격식있는 회사어` 2가지 버전을 출력합니다.
+        *   *(💡 메일 선택 시 제목/인사/서명이 다 들어간 이메일 양식으로 출력되며, 보고서 선택 시 대화체가 완전히 배제된 개조식 요약 양식으로 정확히 출력됩니다.)*
+
+### 2. 이메일 제목 짓기 (New)
+업무 메일 발송 전, 메일함에서 한눈에 수신인의 이목을 장악하고 가시성을 높여주는 세련된 메일 제목을 작성합니다.
+
+*   **사용 방법**:
+    1.  **안건 입력**: 메일로 보낼 핵심 내용 키워드(예: `7월 부서 정산서 누락 내역 공유`)를 한 줄 입력합니다.
+        *   *(💡 팁: 번역 페이지에서 '이메일'을 선택해 번역을 완료하면, 번역 버튼 바로 밑에 전용 유도 배너가 활성화됩니다. 이를 클릭해 넘어오면 방금 번역에 사용한 원문 텍스트가 안건 입력창에 자동으로 자동 기입됩니다.)*
+    2.  **머리말 및 대상 지정**: 메일의 목적 태그(`없음`, `보고`, `요청` 등)와 수신 대상(`상사`, `동료`, `후배`, `거래처`)을 탭하여 선택합니다.
+    3.  **제목 짓기**: `이메일 제목 짓기` 버튼을 누릅니다.
+    4.  **결과물 출력**: AI가 `📌 직관 명료 스타일`, `🤝 정중 격식 스타일`, `⏰ 기한 강조 스타일` 3가지 버전을 출력합니다
+
+### 3. 인사말 작성 (New)
+계절, 명절, 날씨, 상황별 오프닝 인사 및 정중한 아웃트로 맺음말을 조립합니다.
+
+*   **사용 방법**:
+    1.  **세부 안건 입력(선택)**: 인사말 속에 긴밀하게 결합하고 싶은 구체적인 행사명이나 안건(예: `상반기 경영 성과 공유회`)이 있다면 가볍게 키워드로 입력해 둡니다.
+    2.  **참고 정보 선택**: 반영하고 싶은 참고 정보 카드(**`📅 날짜`**, **`⏰ 시간대`**, **`☀️ 날씨`**)를 터치해 파란색 테두리로 활성화해 줍니다. 
+        *   *(💡 팁: 계절과 명절 전후 D-Day를 자동으로 연산하여 관련 정보를 참고합니다.)*
+    3.  **세부 조건 선택**: 인사말 분류(`시작 인사`/`마무리 인사`), 목적, 대상, 상황, 희망 분량(`짧게`/`보통`/`길게`)을 맞춤형 탭으로 골라줍니다.
+    4.  **인사말 작성**: `인사말 작성하기` 버튼을 누릅니다.
+    5.  **결과물 출력**: AI가 , `😊 부드러운 인사말`과 `💼 격식있는 인사말`을 2가지 버전을 출력해 줍니다. 
 
 ---
 
@@ -38,53 +53,6 @@
 - **Styling / Components**: Tailwind CSS, shadcn/ui 기반 커스텀 리액트 컴포넌트 셋
 - **Deployment**: Vercel CI/CD
 
----
-
-## 📂 프로젝트 구조 (Folder Structure)
-
-```text
-src/
-├── app/
-│   ├── api/
-│   │   └── translate/
-│   │       └── route.ts     # 비즈니스 로직 조립 및 AI 처리 엔드포인트
-│   ├── globals.css          # Tailwind CSS v4 스타일링 설정
-│   ├── layout.tsx           # 전역 레이아웃 및 구글 애드센스 탑재
-│   ├── page.tsx             # 홈 스크린 마운트 및 SEO
-│   └── robots.ts            # 검색 엔진 노출 정책 빌더
-├── components/
-│   ├── layout/
-│   │   ├── Header.tsx       # 상단 글로벌 바
-│   │   └── Footer.tsx       # 피드백 메일 복사 / 카카오 송금 모달 구현부
-│   └── ui/
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── label.tsx
-│       ├── radio-group.tsx  # strict type-safe cloned elements
-│       └── textarea.tsx
-├── features/
-│   └── translator/
-│       ├── components/
-│       │   ├── TranslatorContainer.tsx # 로딩, 에러, 변환 결합 코어
-│       │   ├── TranslatorForm.tsx      # 프리셋, 비우기, 라디오 폼 가공
-│       │   └── TranslatorResult.tsx    # 부드럽게 / 격식있게 이중 카드 및 복사
-│       ├── api.ts           # 클라이언트 전송 요청 바인딩
-│       └── types.ts         # 도메인 정밀 데이터 모델 정의
-├── hooks/
-│   └── use-copy-to-clipboard.ts # 클립보드 복사 전용 가치 훅
-└── lib/
-    ├── rate-limiter/        # 상용 수준의 동시성 어뷰징 방지 패키지
-    │   ├── config.ts
-    │   ├── identifier.ts
-    │   ├── logger.ts
-    │   ├── store.ts
-    │   └── index.ts
-    └── utils.ts
-public/                      # 정적 서빙용 폴더
-├── kakaopay-qr.png          # 후원용 개인 QR 이미지
-├── robots.txt               # 구글 봇 로봇 색인 가이드
-└── ads.txt                  # 애드센스 판매자 신원 보안 검증 파일
-```
 ---
 ## ⚙️ 환경 변수 설정 (Environment Variables)
 프로젝트 로컬 최상단 루트에 .env.local 파일을 생성하여 다음과 같이 환경 변수를 채워 넣으십시오. (Vercel 배포 시에는 Vercel Settings 대시보드에서 등록해 주시면 됩니다.)
@@ -111,7 +79,74 @@ npm run dev
 ```Bash
 npm run build
 ```
+
 ---
-## 🔒 라이선스 및 면책 사항 (License & Disclaimer)
-- **License**: MIT License
-- **Disclaimer**: 본 서비스에서 변환 및 출력되는 결과 데이터는 사용자가 선택적으로 차용해야 하는 비즈니스 참고 가이드일 뿐입니다. 사내 중요 소통이나 거래처 관련 비즈니스 메일 발송 전, 최종 전송 여부에 대한 검증 책임은 사용자 본인에게 있습니다.
+
+## 📂 프로젝트 구조 (Folder Structure)
+
+```text
+src/
+├── app/
+│   ├── api/
+│   │   ├── translate/
+│   │   │   └── route.ts     # 본문 말투 변환 API (force-dynamic 및 지연초기화)
+│   │   ├── subject/
+│   │   │   └── route.ts     # 이메일 제목 짓기 API (force-dynamic 및 지연초기화)
+│   │   └── greeting/
+│   │       └── route.ts     # 인사말 작성 API (무제한 음력 추적 및 4대 압축 엔진 탑재)
+│   ├── subject-generator/
+│   │   └── page.tsx         # 이메일 제목 짓기 페이지 라우트
+│   ├── greeting-generator/
+│   │   └── page.tsx         # 인사말 작성 페이지 라우트
+│   ├── globals.css          # Tailwind CSS v4 스타일링 설정 및 물리 애니메이션 탑재
+│   ├── layout.tsx           # 전역 레이아웃 및 구글 애드센스 Script 탑재
+│   └── page.tsx             # 홈 스크린 (메신저 1:1 대조 예문 슬라이드 가동부)
+├── components/
+│   ├── layout/
+│   │   ├── Header.tsx       # 상단 글로벌 바 (설정 기반 동적 NEW 알림 뱃지 탑재)
+│   │   └── Footer.tsx       # 피드백 이메일/인스타 복사 및 카카오 송금 모달 구현부
+│   └── ui/                     # 공용 UI 디자인 요소
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── label.tsx
+│       ├── radio-group.tsx  # strict type-safe cloned elements
+│       └── textarea.tsx
+├── features/                   # 도메인 주도 격리형 피처 폴더
+│   ├── shared-tools/
+│   │   └── config.ts        # 모든 비즈니스 툴 정보를 관장하는 플랫폼 중앙 장부 (OCP 준수)
+│   ├── translator/             # 번역기 피처 소스 코드
+│   │   ├── components/
+│   │   │   ├── TranslatorContainer.tsx
+│   │   │   ├── TranslatorForm.tsx
+│   │   │   └── TranslatorResult.tsx
+│   │   ├── api.ts
+│   │   └── types.ts
+│   ├── subject-generator/       # 신규 이메일 제목 짓기 피처 소스 코드
+│   │   ├── components/
+│   │   │   ├── SubjectContainer.tsx
+│   │   │   ├── SubjectForm.tsx
+│   │   │   └── SubjectResult.tsx
+│   │   ├── api.ts
+│   │   └── types.ts
+│   └── greeting-generator/      # 신규 인사말 작성 피처 소스 코드
+│       ├── components/
+│       │   ├── GreetingContainer.tsx
+│       │   ├── GreetingForm.tsx
+│       │   └── GreetingResult.tsx
+│       └── types.ts
+├── hooks/
+│   └── use-copy-to-clipboard.ts # 클립보드 복사 커스텀 훅
+└── lib/
+    ├── rate-limiter/        # 상용 수준의 어뷰징 방지 패키지
+    │   ├── config.ts
+    │   ├── identifier.ts
+    │   ├── logger.ts
+    │   ├── store.ts
+    │   └── index.ts
+    └── utils.ts
+public/                      # 정적 리소스 디렉토리
+├── kakaopay-qr.png          # 후원용 개인 QR 이미지
+├── robots.txt               # 검색 크롤러 표준 인덱싱 지침서
+└── ads.txt                  # 애드센스 판매자 신원 보안 검증 파일
+```
+
