@@ -44,21 +44,27 @@ export const GreetingContainer: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // 1. 최초 가동 마운트 복구 및 5단계 시간대 분석 이식 [1.1.2, 1.2.3]
+  // 1. 최초 가동 마운트 복구 및 5단계 시간대 분석 이식
   useEffect(() => {
     const restoreSessionData = () => {
       const now = new Date();
-      const todayString = now.toISOString().split("T")[0]; // YYYY-MM-DD
+
+      // ◀ 대한민국 표준시(KST) 시차 오류를 완벽하게 정정하여 오차 없는 오늘 날짜를 구합니다. ▶
+      const offset = now.getTimezoneOffset() * 60000;
+      const todayString = new Date(now.getTime() - offset)
+        .toISOString()
+        .split("T")[0]; // KST 기준 정확한 오늘 날짜!
+
       const hour = now.getHours(); // 실시간 시각 감지 (0~23)
 
-      // A. 날씨 기후 계절별 예측 매핑 [2.1.2]
+      // A. 날씨 기후 계절별 예측 매핑
       let weatherEst = "맑음";
       if (now.getMonth() + 1 >= 6 && now.getMonth() + 1 <= 8)
         weatherEst = "더움";
       else if (now.getMonth() + 1 >= 12 || now.getMonth() + 1 <= 2)
         weatherEst = "추움";
 
-      // B. 5단계 기안문 전용 시간대 정밀 분석 매핑 [1.1.2, 1.2.3]
+      // B. 5단계 기안문 전용 시간대 정밀 분석 매핑
       let timeEst = "오후";
       if (hour >= 6 && hour < 11) {
         timeEst = "오전";
